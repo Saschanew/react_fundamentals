@@ -7,7 +7,7 @@ function NewCourseForm() {
     return <form className='form'>
         <div className='flex'>
             <div><p>Title</p><Input></Input></div>
-            <div><Button name="Create course" onClick = {() => {}}></Button></div>
+            <div><Button onClick = {() => {}}>Create course</Button></div>
         </div>
         <div>
             <div><p>Description</p></div>

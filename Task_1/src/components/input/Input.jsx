@@ -5,7 +5,7 @@ function Input({onChange}) {
     return <input onChange={onChange} className='input'></input>
 };
 
-Input.protoTypes = {
+Input.propTypes = {
     onChange: PropTypes.func
 };
 

@@ -11,20 +11,24 @@ function Card({title, duration, creationDate, description, authors}) {
                     </div>
                 </div>
                 <div className='details'>
-                    <div className='detail'><div className='detailLabel'><p>Authors: </p></div><div className='detailInfo'>{authors.join(', ')}</div></div>
-                    <div className='detail'><div className='detailLabel'><p>Duration: </p></div><div className='detailInfo'>{duration}</div></div>
-                    <div className='detail'><div className='detailLabel'><p>Created: </p></div><div className='detailInfo'>{creationDate}</div></div>
-                   <Button name="Show course" className="schowCorseButton"></Button>
+                <Detail label="Authors: ">{authors.join(', ')}</Detail>
+                <Detail label="Duration: ">{duration}</Detail>
+                <Detail label="Created: ">{creationDate}</Detail>
+                   <Button className="schowCorseButton">Show course</Button>
                 </div> 
             </div>
 };
 
-Card.protoTypes = {
+Card.propTypes = {
     title: PropTypes.string,
     duration: PropTypes.string,
     creationDate: PropTypes.string,
     description: PropTypes.string,
     authors: PropTypes.array
 };
+
+function Detail({ children, label }) { 
+    return  <div className='detail'><div className='detailLabel'><p>{label}</p></div><div className='detailInfo'>{children}</div></div>
+}
 
 export default Card;

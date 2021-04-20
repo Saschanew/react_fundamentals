@@ -5,7 +5,7 @@ function UserName({userName}) {
     return <div className='userName'><p>{userName}</p></div>
 };
 
-UserName.protoTypes = {
+UserName.propTypes = {
     userName: PropTypes.string
 };
 

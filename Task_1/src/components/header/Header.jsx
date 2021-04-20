@@ -9,7 +9,7 @@ export default function Header() {
                         <Logo></Logo>
                         <div className="flex">
                             <UserName userName='Dave'></UserName>
-                            <Button name="Log out" className="classButtonHeader"></Button>
+                            <Button className="classButtonHeader">Log out</Button>
                         </div>
                     </div>
                 </header> 
