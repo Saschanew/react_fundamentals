@@ -1,0 +1,7 @@
+export const FETCH_COURSES = 'FETCH_COURSES'
+export const GET_COURSE = 'GET_COURSE'
+export const ADD_COURSE = 'ADD_COURSE'
+export const REMOVE_COURSE = 'REMOVE_COURSE'
+export const FETCH_AUTHORS = 'FETCH_AUTHORS'
+export const ADD_AUTHOR = 'ADD_AUTHOR'
+export const REMOVE_AUTHOR = 'REMOVE_AUTHOR'
