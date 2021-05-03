@@ -3,11 +3,12 @@ import Input from './Input';
 import Button from './Button';
 import {Context} from '../store/Context'
 import { v4 as uuidv4 } from 'uuid';
+import { Redirect } from 'react-router-dom'
 
 function NewCourseForm() {
 
     const {authors, addAuthor, addCourse} = useContext(Context)    
-
+    let added = false
     let [newCourse, updateFormData] = useState(
         {
             id: '',
@@ -26,15 +27,18 @@ function NewCourseForm() {
     });
   };
 
+  let [authorsList, setAuthorsList] = useState(
+    []
+)
+
   const formSubmit = () => {
     newCourse.id = uuidv4()
     newCourse.authors = authorsList
     addCourse(newCourse)
+    added=true
   };
 
-    let [authorsList, setAuthorsList] = useState(
-        []
-    )
+    if(added) return <Redirect to={"/"} />  
 
     return <form>
         <div className='wrapper flex'>

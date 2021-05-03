@@ -3,20 +3,31 @@ import axios from 'axios'
 import {Context} from './Context'
 import {coursesReducer} from './coursesReducer'
 import {authorsReducer} from './authorsReducer'
-import {ADD_COURSE, FETCH_COURSES, GET_COURSE, REMOVE_COURSE, ADD_AUTHOR, FETCH_AUTHORS,  REMOVE_AUTHOR} from './actionTypes'
+import {userReducer} from './userReducer'
+import {ADD_COURSE, FETCH_COURSES, GET_COURSE, REMOVE_COURSE, ADD_AUTHOR, FETCH_AUTHORS,  REMOVE_AUTHOR, LOGIN, LOGOUT} from './actionTypes'
 
 const url = 'http://localhost:3000'
 
 export const State = ({children}) => {
   const initialState = {
     courses: [],
-    course: {}
+    course: {},
   }
   const initialStateAuthors = {
     authors: []
   }
+  const initialStateUser = {
+    user: {
+      isAuth: false,
+      name: '',
+      email: '',
+      password: '',
+      token: ''
+    }
+  }
   const [state, dispatch] = useReducer(coursesReducer, initialState)
   const [stateAuthors, dispatchAuthors] = useReducer(authorsReducer, initialStateAuthors)
+  const [stateUser, dispatchUser] = useReducer(userReducer, initialStateUser)
 
   const fetchCourses = async () => {
     const res = await axios.get(`${url}/courses/all`)
@@ -31,7 +42,7 @@ export const State = ({children}) => {
   }
 
   const getCourse = async id => {
-    const res = await axios.get(`${url}/courses/${id}`)
+    const res = await axios.get(`${url}/courses/`, id)
     const payload = res.data.result
 
     dispatch({type: GET_COURSE, payload})
@@ -53,7 +64,7 @@ export const State = ({children}) => {
   }
 
   const removeCourse = async id => {
-    await axios.delete(`${url}/courses/${id}.json`)
+    await axios.delete(`${url}/courses`, id)
 
     dispatch({
       type: REMOVE_COURSE,
@@ -94,7 +105,7 @@ export const State = ({children}) => {
   }
 
   const removeAuthor = async id => {
-    await axios.delete(`${url}/authors/${id}.json`)
+    await axios.delete(`${url}/authors`, id)
 
     dispatchAuthors({
       type: REMOVE_AUTHOR,
@@ -102,12 +113,27 @@ export const State = ({children}) => {
     })
   }
 
+  const login = async (user) => {
+    try {
+    const res = await axios.post(`${url}/login`, user)
+    const payload = {
+      isAuth: true,
+      token: res.data
+    }
+
+    dispatchUser({type: LOGIN, payload})
+    } catch (e) {
+      throw new Error(e.message)
+    }
+  }
+
   return (
     <Context.Provider value={{
-      addCourse, removeCourse, fetchCourses, getCourse, addAuthor, removeAuthor, fetchAuthors,
+      addCourse, removeCourse, fetchCourses, getCourse, addAuthor, removeAuthor, fetchAuthors, login,
       courses: state.courses,
       course: state.course,
-      authors: stateAuthors.authors
+      authors: stateAuthors.authors,
+      user: stateUser.user
     }}>
       {children}
     </Context.Provider>

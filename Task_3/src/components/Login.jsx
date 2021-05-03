@@ -1,35 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Input from './Input';
 import Button from './Button';
-import { Link } from 'react-router-dom'
-import Axios from 'axios';
+import { Link, Redirect } from 'react-router-dom'
+import {Context} from '../store/Context'
 
 function Login() {
+
+  let {user, login} = useContext(Context)
+
     let [email, setEmail] = useState('');
     let [password, setPassword] = useState('');
-    const UserModel = {
-        name: null,
-        email: email,
-        password: password
-      }
+    let userModel = {
+      name: null,
+      email: email,
+      password: password
+    }
+    user.email = email
+    user.password = password
+    if(user.isAuth)  return <Redirect to={'/'} />  
     return <form onSubmit={
         (event) => {
-            Axios.post("http://localhost:3000/login",
-                        UserModel
-                ).then(res => {
-                    let responseData = res.data
-                    if (responseData.successful) {
-                      localStorage.setItem('token', responseData)
-                    } else {
-                      alert('Something went wrong while login')
-                    }
-                })
-                event.preventDefault();
-        }
+          event.preventDefault();
+          login(userModel);
+          }
     }>
                 <div className='wrapper flexCenter'>
                     <h3>Login</h3>
-                    <label>Email</label><Input children={'email'} required={true} onChange={(event) => setEmail(event.target.value)}></Input>
+                    <label>Email</label><Input children={'email'} required={true} onChange={(event) => {setEmail(event.target.value)}}></Input>
                     <label>Password</label><Input children={'password'} required={true} onChange={(event) => setPassword(event.target.value)}></Input>
                     <Button children='Login' className='buttonLogin'></Button>
                     <div>
