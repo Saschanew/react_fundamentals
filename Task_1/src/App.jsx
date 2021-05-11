@@ -1,5 +1,5 @@
-import Header from './components/header/Header';
-import Courses from './components/cards/Courses';
+import Header from './components/Header';
+import Courses from './components/Courses';
 
 function App() {
 

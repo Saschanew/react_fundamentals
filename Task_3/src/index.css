@@ -33,6 +33,7 @@ section {
 
 .flexCenter {
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
@@ -81,7 +82,7 @@ section {
   margin-right: 10px;
 }
 
-.schowCorseButton, .createCourseButton {
+.schowCorseButton, .createCourseButton, .buttonLogin {
   margin: 20px 20px 0 0;
   width: 156px;
   height: 30px;
@@ -100,4 +101,8 @@ section {
   height: 22px;
   width: 400px;
   margin-right: 30px;
+}
+
+a {
+  margin-left: 5px;
 }
