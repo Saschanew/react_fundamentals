@@ -7,6 +7,7 @@ import CourseInfo from './components/CourseInfo';
 import {State} from './store/State'
 import NewCourseForm from './components/NewCourseForm';
 import UpdateCourse from './components/UpdateCourse';
+import PrivateRoute from './PrivateRoute';
 
 function App() {
   return (
@@ -17,20 +18,22 @@ function App() {
             <section>
             <Switch>
                 <Route exact path='/'>
-                    <Courses></Courses>
+                  <PrivateRoute component='Courses'></PrivateRoute>
                 </Route>
                 <Route exact path='/login'>
-                    <Login></Login>
+                  <PrivateRoute component='Login'></PrivateRoute>
                 </Route>
                 <Route exact path='/registration'>
-                    <Registration></Registration>
+                  <PrivateRoute component='Registration'></PrivateRoute>
                 </Route>
-                <Route exact path='/courses/:id' component={CourseInfo}></Route>
+                <Route exact path='/courses/:id'>
+                  <PrivateRoute component='CourseInfo'></PrivateRoute>
+                </Route>
                 <Route exact path='/course/add'>
-                    <NewCourseForm></NewCourseForm>
+                  <PrivateRoute component='NewCourseForm'></PrivateRoute>
                 </Route>
-                <Route exact path='/courses/update/:courseId' component={UpdateCourse}>
-                    <UpdateCourse></UpdateCourse>
+                <Route exact path='/courses/update/:courseId'>
+                  <PrivateRoute component='UpdateCourse'></PrivateRoute>
                 </Route>
             </Switch>
             </section>
